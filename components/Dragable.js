@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, PanResponder, Animated } from 'react-native';
+import { View, TouchableOpacity, PanResponder, Animated, Text, TextInput, Alert } from 'react-native';
 import Gestures from 'react-native-easy-gestures';
 
 class Dragable extends Component {
@@ -8,14 +8,14 @@ class Dragable extends Component {
     pan: new Animated.ValueXY(),
     scale: new Animated.Value(1)
   }
+
   // STULEN KOD -->
   componentWillMount() {
     this.state.pan.setValue({x: 65, y: 420});
   this._panResponder = PanResponder.create({
+
     onMoveShouldSetResponderCapture: () => true,
     onMoveShouldSetPanResponderCapture: () => true,
-
-
 
     onPanResponderGrant: (e, gestureState) => {
       this.state.pan.setOffset({x: this.state.pan.x._value, y: this.state.pan.y._value});
@@ -45,16 +45,18 @@ class Dragable extends Component {
     let [translateX, translateY] = [pan.x, pan.y];
     let rotate = '0deg';
     let scale = this.state.scale
-    return(
 
+
+    return(
         <Animated.View
         {...this._panResponder.panHandlers}
         style={{...dragableObj,
        backgroundColor: this.props.dragableColor,
        transform: [{translateX}, {translateY}, {rotate}, {scale}]}}
+       onPress={this._onLongPressButton}
         >
+        <TextInput style={{height: 0, width: 0, justifyContent:'center', alignItems:'center', borderColor: 'transparent', borderWidth: 0}}> </TextInput>
         </Animated.View>
-
     );
   }
 }
@@ -65,6 +67,8 @@ const dragableObj = {
   backgroundColor: 'blue',
   position: 'absolute',
   borderRadius: 50,
+  alignItems: 'center',
+  justifyContent: 'center',
 }
 
 export default Dragable;

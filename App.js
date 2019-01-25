@@ -7,37 +7,38 @@ import Footer from './components/Footer.js';
 
 export default class App extends React.Component {
   state = {
-    viewHomepage: true,
-    viewEditpage: false,
+
+    showColorPicker: false,
+    moveDragables: false,
+    showHomePage: true,
   }
   render() {
     return (
       <View style={styles.container}>
-      {this.renderPage()}
+      <EditPage
+      showColorPicker={this.state.showColorPicker}
+      showDragables={this.state.moveDragables}
+      moveDragables={this.state.moveDragables}
+      />
       <Footer
       onPressToEdit={this.renderEditpage}
       onPressToHomepage={this.renderHomepage}
-      homePageState={this.state.viewHomepage}
-      editPageState={this.state.viewEditpage}
+      showHomePage={this.state.showHomePage}
       />
       </View>
     );
   }
 
 renderEditpage = () => {
-  this.setState({viewHomepage: false});
-  this.setState({viewEditpage: true});
+  this.setState({moveDragables: true})
+  this.setState({showColorPicker: true});
+  this.setState({showHomePage: false});
 }
 
 renderHomepage = () => {
-  this.setState({viewEditpage: false});
-  this.setState({viewHomepage: true});
-}
-
-renderPage = () => {
-  if (this.state.viewEditpage == true) {
-    return (<EditPage />);
-  }
+  this.setState({moveDragables: false})
+  this.setState({showColorPicker: false});
+  this.setState({showHomePage: true});
 }
 
 }

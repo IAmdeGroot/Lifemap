@@ -11,7 +11,7 @@ class Footer extends Component {
     );
   }
   renderAddButton = () => {
-    if (this.props.homePageState == true) {
+    if (this.props.showHomePage == true) {
       return <AddButton onPress={this.props.onPressToEdit} />
     } else {
       return <AddButton onPress={this.props.onPressToHomepage} />
